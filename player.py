@@ -79,8 +79,8 @@ class Player:
 
 
 # Controls for each player
-p1_controls = {"left": pg.K_a, "right": pg.K_d, "shoot": pg.K_w}
-p2_controls = {"left": pg.K_LEFT, "right": pg.K_RIGHT, "shoot": pg.K_UP}
+p1_controls = {"left": pg.K_a, "right": pg.K_d, "shoot": pg.K_e}
+p2_controls = {"left": pg.K_LEFT, "right": pg.K_RIGHT, "shoot": pg.K_SPACE}
 
 # Create players
 player1 = Player(screen_rect, BLUE, SCREEN_WIDTH // 4, SCREEN_HEIGHT - 100, p1_controls, -1)
