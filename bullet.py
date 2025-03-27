@@ -1,6 +1,6 @@
 import pygame
 
-BULLET_SPEED = 500
+BULLET_SPEED = 1000
 
 class Bullet:
     def __init__(self, loc, direction, image_path):
@@ -16,3 +16,7 @@ class Bullet:
 
     def is_off_screen(self, screen_width):
         return self.rect.right < 0 or self.rect.left > screen_width  
+    
+    def check_collision(self, player):
+        #Tjek om kuglen rammer spillerens cirkulære hitbox
+        return player.check_collision(self)

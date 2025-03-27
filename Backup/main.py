@@ -1,29 +1,31 @@
 import pygame
 from player import Player
+from pygame.locals import *
+from boundary import Boundary
 
-# Initialiser pygame
 pygame.init()
-
-# Skærmstørrelse
 WIDTH, HEIGHT = 1920, 1080
-screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.SCALED | pygame.FULLSCREEN)
-pygame.display.set_caption("2D PvP Shooter")
+screen = pygame.display.set_mode((WIDTH, HEIGHT), SCALED | FULLSCREEN)
+pygame.display.set_caption("Blast Buddies")
 
 # Load baggrundsbillede
 background = pygame.image.load("Sprites/Background.png")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+# Create boundary instance
+boundary = Boundary(WIDTH, HEIGHT)
 
 # FPS
+FPS = 30
 clock = pygame.time.Clock()
 
 # Spillere
 player1 = Player("Sprites/PlayerRed.png", 100, HEIGHT // 2, {
     "up": pygame.K_w, "down": pygame.K_s, "left": pygame.K_a, "right": pygame.K_d, "shoot": pygame.K_e
-}, 1, mv_range=((0, 0), (960, 1080)))
+}, direction = 1, boundary = boundary)
 
 player2 = Player("Sprites/PlayerBlue.png", WIDTH - 150, HEIGHT // 2, {
     "up": pygame.K_UP, "down": pygame.K_DOWN, "left": pygame.K_LEFT, "right": pygame.K_RIGHT, "shoot": pygame.K_SPACE
-}, -1, mv_range=((960, 0), (1920, 1080)))
+}, direction = -1, boundary = boundary)
 
 # Game loop
 running = True
@@ -43,8 +45,8 @@ while running:
 
     # Opdater spillere
     keys = pygame.key.get_pressed()
-    player1.update(keys, delta_time)
-    player2.update(keys, delta_time)
+    player1.update(keys, delta_time, player2)
+    player2.update(keys, delta_time, player1)
 
     # Tegn spillere
     player1.draw(screen)
