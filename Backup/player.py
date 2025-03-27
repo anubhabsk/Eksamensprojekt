@@ -15,18 +15,13 @@ class Player:
         self.controls = controls
         self.direction = direction  
 
-        # Determine bullet image based on player image
-        if "PlayerRed" in image_path:
-            self.bullet_image = "Sprites/BulletLeft.png"
-        else:
-            self.bullet_image = "Sprites/BulletRight.png"
-
     def get_event(self, event):
         if event.type == pygame.KEYDOWN and event.key == self.controls["shoot"]:
             bullet_start = self.rect.midright if self.direction == 1 else self.rect.midleft
-            self.bullets.append(Bullet(bullet_start, self.direction, self.bullet_image))
+            self.bullets.append(Bullet(bullet_start, self.direction))
 
     def update(self, keys, dt):
+
         if keys[self.controls["up"]]:
             self.rect.y -= self.speed * dt
         if keys[self.controls["down"]]:
@@ -37,9 +32,9 @@ class Player:
             self.rect.x += self.speed * dt
 
         self.bullets = [bullet for bullet in self.bullets if not bullet.is_off_screen(1920)]
-        for bullet in self.bullets:
-            bullet.update(dt)
-
+        for laser in self.bullets:
+            laser.update(dt)
+        
     def draw(self, surf):
         for bullet in self.bullets:
             bullet.render(surf)

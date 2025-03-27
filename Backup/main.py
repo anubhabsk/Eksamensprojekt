@@ -1,28 +1,29 @@
 import pygame
 from player import Player
-from pygame.locals import *
 
+# Initialiser pygame
 pygame.init()
+
+# Skærmstørrelse
 WIDTH, HEIGHT = 1920, 1080
-screen = pygame.display.set_mode((WIDTH, HEIGHT), SCALED | FULLSCREEN)
-pygame.display.set_caption("Blast Buddies")
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.SCALED | pygame.FULLSCREEN)
+pygame.display.set_caption("2D PvP Shooter")
 
 # Load baggrundsbillede
 background = pygame.image.load("Sprites/Background.png")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 # FPS
-FPS = 30
 clock = pygame.time.Clock()
 
 # Spillere
 player1 = Player("Sprites/PlayerRed.png", 100, HEIGHT // 2, {
     "up": pygame.K_w, "down": pygame.K_s, "left": pygame.K_a, "right": pygame.K_d, "shoot": pygame.K_e
-}, direction = 1)
+}, 1, mv_range=((0, 0), (960, 1080)))
 
 player2 = Player("Sprites/PlayerBlue.png", WIDTH - 150, HEIGHT // 2, {
     "up": pygame.K_UP, "down": pygame.K_DOWN, "left": pygame.K_LEFT, "right": pygame.K_RIGHT, "shoot": pygame.K_SPACE
-}, direction = -1)
+}, -1, mv_range=((960, 0), (1920, 1080)))
 
 # Game loop
 running = True
