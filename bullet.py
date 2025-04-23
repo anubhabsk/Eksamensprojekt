@@ -18,5 +18,13 @@ class Bullet:
         return self.rect.right < 0 or self.rect.left > screen_width  
     
     def check_collision(self, player):
-        #Tjek om kuglen rammer spillerens cirkulære hitbox
         return player.check_collision(self)
+    
+    def check_collision_with_boxes(self, boxes):
+        """ Check if bullet collides with any active box """
+        for box in boxes:
+            if box.active and self.rect.colliderect(box.rect):
+                box.take_damage()
+                return True
+        return False
+    
