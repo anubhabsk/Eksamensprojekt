@@ -1,6 +1,6 @@
 import pygame
 
-BULLET_SPEED = 1000
+BULLET_SPEED = 1100
 
 class Bullet:
     def __init__(self, loc, direction, image_path):
