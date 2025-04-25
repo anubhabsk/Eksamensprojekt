@@ -1,7 +1,9 @@
 import pygame
 from bullet import Bullet
 from boundary import Boundary
+import os
  
+path = os.path.join(os.path.dirname(__file__), 'Sprites')
 PLAYER_SPEED = 300
 PLAYER_HP = 3
 HEART_SPACING = 60  
@@ -17,11 +19,12 @@ class Player:
         self.controls = controls
         self.direction = direction  
         self.boundary = boundary
-        self.heart_image = pygame.image.load("Sprites/Heart.png").convert_alpha()
+        
+        self.heart_image = pygame.image.load(os.path.join(path, 'Heart.png')).convert_alpha()
         self.heart_image = pygame.transform.scale(self.heart_image, (50, 50))
         self.hitbox_radius = max(self.rect.width, self.rect.height) // 3
         self.hitbox_center = self.rect.center
-        self.bullet_image = "Sprites/BulletLeft.png" if "PlayerRed" in image_path else "Sprites/BulletRight.png"
+        self.bullet_image = os.path.join(path, "BulletLeft.png") if "PlayerRed" in image_path else os.path.join(path, "BulletRight.png")
  
     def get_event(self, event):
         if event.type == pygame.KEYDOWN and event.key == self.controls["shoot"]:

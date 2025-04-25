@@ -1,12 +1,14 @@
 import pygame
 import random
+import os
  
+path = os.path.join(os.path.dirname(__file__), 'Sprites')
 BOX_WIDTH, BOX_HEIGHT = 159.589041, 150  # Box size
 RESPAWN_TIME = 3000  
  
 class Box:
     def __init__(self, x, y):
-        self.image = pygame.image.load("Sprites/Box.png").convert_alpha()
+        self.image = pygame.image.load(os.path.join(path, 'Box.png')).convert_alpha()
         self.image = pygame.transform.scale(self.image, (BOX_WIDTH, BOX_HEIGHT))
         self.rect = self.image.get_rect(topleft=(x, y))
         self.health = 3
