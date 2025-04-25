@@ -11,20 +11,16 @@ class Player:
         self.image_path = image_path
         self.image = pygame.image.load(image_path).convert_alpha()  
         self.rect = self.image.get_rect(center=(start_x, start_y))
-       
         self.speed = PLAYER_SPEED
         self.bullets = []
         self.health = PLAYER_HP
         self.controls = controls
         self.direction = direction  
         self.boundary = boundary
-       
         self.heart_image = pygame.image.load("Sprites/Heart.png").convert_alpha()
         self.heart_image = pygame.transform.scale(self.heart_image, (50, 50))
- 
         self.hitbox_radius = max(self.rect.width, self.rect.height) // 3
         self.hitbox_center = self.rect.center
- 
         self.bullet_image = "Sprites/BulletLeft.png" if "PlayerRed" in image_path else "Sprites/BulletRight.png"
  
     def get_event(self, event):
@@ -42,10 +38,8 @@ class Player:
             self.rect.x -= self.speed * dt
         if keys[self.controls["right"]]:
             self.rect.x += self.speed * dt
-       
         self.boundary.enforce(self)
         self.hitbox_center = self.rect.center
- 
         new_bullets = []
         for bullet in self.bullets:
             bullet.update(dt)
@@ -66,7 +60,6 @@ class Player:
         for bullet in self.bullets:
             bullet.render(surf)
         surf.blit(self.image, self.rect)
- 
         for i in range(self.health):
             heart_x = self.rect.x + 30 + (i * HEART_SPACING)
             heart_y = self.rect.y - 40  
